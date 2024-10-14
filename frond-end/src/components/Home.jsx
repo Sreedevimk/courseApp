@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Button,Card,CardActions,CardContent,CardMedia,Grid2,Typography} from '@mui/material'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 //  const [rows,setRows]=useState([])
 //  useEffect(()=>{
 //   axios.get('http://localhost:4000/course/').then((res)=>{
@@ -35,9 +36,7 @@ import axios from 'axios'
 //         CourseFee:20000
 //     }
 // ]
-    
-
-    
+     
     const Home = () => {
 
       const [rows,setRows]=useState([])
@@ -45,7 +44,6 @@ import axios from 'axios'
   axios.get('http://localhost:4000/course/').then((res)=>{
     setRows(res.data)
 
-    
  })
 
  
@@ -56,6 +54,12 @@ import axios from 'axios'
       window.location.reload();
     })
  }
+const navigate=useNavigate()
+function updateCourse(course){
+  navigate('/add',{state:{course}})
+}
+
+
       return (
         
         <Grid2 container spacing={4}>
@@ -90,7 +94,7 @@ import axios from 'axios'
                  </Typography> 
                 
                   <CardActions>
-                 <Button  variant="outlined" color="success">
+                 <Button onClick={()=>{updateCourse(row)}}  variant="outlined" color="success"   >
                  Update </Button> 
                  <Button  onClick={()=>{deleteCourse(row._id)}} variant="outlined" color="error" >
                  delete </Button>
